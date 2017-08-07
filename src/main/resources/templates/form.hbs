@@ -1,0 +1,19 @@
+{{#partial "title" }}
+  Make some change!
+{{/partial}}
+
+<!--form.hbs.-->
+{{#partial "content"}}
+
+<h1>Enter the amount of money you'd like change for!</h1>
+<form action='/change_result'>
+ <div class="form-group">
+   <label for="money">Amount of money</label>
+   <input id="money" name="money" class="form-control" type="text">
+ </div>
+ <button type="submit" class="btn">Go!</button>
+</form>
+<!--form.hbs.-->
+{{/partial}}
+
+{{> layout.hbs}}

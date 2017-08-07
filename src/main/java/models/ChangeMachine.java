@@ -1,3 +1,7 @@
+package models;
+import java.lang.String;
+
+
 public class ChangeMachine {
   private int mQuarters;
   private int mDimes;
@@ -11,25 +15,25 @@ public class ChangeMachine {
     mPennies = 20;
   }
 
-  public int getQuarters(){
+  public int getQuarters() {
     return mQuarters;
   }
 
-  public int getDimes(){
+  public int getDimes() {
     return mDimes;
   }
 
-  public int getNickels(){
+  public int getNickels() {
     return mNickels;
   }
 
-  public int getPennies(){
+  public int getPennies() {
     return mPennies;
   }
 
-  public int makeQuarterChange(Float totalCash){
+  public int makeQuarterChange(Float totalCash) {
     int quarterChangeQuantity = 0;
-    while (totalCash >= 0.25f && mQuarters > 0){
+    while (totalCash >= 0.25f && mQuarters > 0) {
       totalCash -= 0.25f;
       quarterChangeQuantity++;
       mQuarters--;
@@ -37,9 +41,9 @@ public class ChangeMachine {
     return quarterChangeQuantity;
   }
 
-  public int makeDimeChange(Float totalCash){
+  public int makeDimeChange(Float totalCash) {
     int dimeChangeQuantity = 0;
-    while (totalCash >= 0.10f && mDimes > 0){
+    while (totalCash >= 0.10f && mDimes > 0) {
       totalCash -= 0.10f;
       dimeChangeQuantity++;
       mDimes--;
@@ -47,9 +51,9 @@ public class ChangeMachine {
     return dimeChangeQuantity;
   }
 
-  public int makeNickelChange(Float totalCash){
+  public int makeNickelChange(Float totalCash) {
     int nickelChangeQuantity = 0;
-    while (totalCash >= 0.05f && mNickels > 0){
+    while (totalCash >= 0.05f && mNickels > 0) {
       totalCash -= 0.05f;
       nickelChangeQuantity++;
       mNickels--;
@@ -57,9 +61,9 @@ public class ChangeMachine {
     return nickelChangeQuantity;
   }
 
-  public int makePennyChange(Float totalCash){
+  public int makePennyChange(Float totalCash) {
     int pennyChangeQuantity = 0;
-    while (totalCash > 0.009f && mPennies > 0){
+    while (totalCash > 0.009f && mPennies > 0) {
       pennyChangeQuantity++;
       mPennies--;
       totalCash -= 0.01f;
@@ -67,15 +71,21 @@ public class ChangeMachine {
     return pennyChangeQuantity;
   }
 
-  public String makeChange(Float totalCash){
-    int quarterChangeTotal = makeQuarterChange(totalCash);
-    float updatedCashTotal = totalCash - (quarterChangeTotal * 0.25f);
-    int dimeChangeTotal = makeDimeChange(updatedCashTotal);
-    updatedCashTotal -= (dimeChangeTotal * 0.10f);
-    int nickelChangeTotal = makeNickelChange(updatedCashTotal);
-    updatedCashTotal -= (nickelChangeTotal * 0.05f);
-    int pennyChangeTotal = makePennyChange(updatedCashTotal);
-    return String.format("Quarters: %d, Dimes: %d, Nickels: %d, Pennies: %d", quarterChangeTotal, dimeChangeTotal, nickelChangeTotal, pennyChangeTotal);
-  }
+  public String makeChange(Float totalCash) {
+    String message = "";
 
+    if (totalCash >= 8.20) {
+      message = "We don't have enough change.";
+    } else if (totalCash < 8.20) {
+      int quarterChangeTotal = makeQuarterChange(totalCash);
+      float updatedCashTotal = totalCash - (quarterChangeTotal * 0.25f);
+      int dimeChangeTotal = makeDimeChange(updatedCashTotal);
+      updatedCashTotal -= (dimeChangeTotal * 0.10f);
+      int nickelChangeTotal = makeNickelChange(updatedCashTotal);
+      updatedCashTotal -= (nickelChangeTotal * 0.05f);
+      int pennyChangeTotal = makePennyChange(updatedCashTotal);
+      message = String.format("Quarters: %d, Dimes: %d, Nickels: %d, Pennies: %d", quarterChangeTotal, dimeChangeTotal, nickelChangeTotal, pennyChangeTotal);
+    }
+    return message;
+  }
 }
